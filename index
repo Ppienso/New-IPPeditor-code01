@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPPedition&code</title>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(120deg, #dce6f7, #e9e9ff);
+    margin: 0; padding: 0;
+    display: flex; flex-direction: column;
+    height: 100vh;
+  }
+  header {
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    color: white;
+    padding: 10px 20px;
+    display: flex; justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em; font-weight: bold;
+  }
+  #toolbar {
+    display: flex; flex-wrap: wrap;
+    background: #eef3ff;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+    gap: 5px;
+  }
+  #toolbar button, #toolbar select, #toolbar input {
+    border: none;
+    background: #dce6ff;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  #toolbar button:hover, #toolbar select:hover {
+    background: #c3d5ff;
+  }
+  #editor {
+    flex: 1;
+    margin: 20px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    overflow-y: auto;
+  }
+  footer {
+    background: #eef3ff;
+    text-align: center;
+    padding: 8px;
+  }
+</style>
+</head>
+<body>
+<header>IPPedition&code</header>
+<div id="toolbar">
+  <button onclick="execCmd('bold')"><b>Gras</b></button>
+  <button onclick="execCmd('italic')"><i>Italique</i></button>
+  <button onclick="execCmd('underline')"><u>Souligné</u></button>
+  <select onchange="execCmdArg('fontName', this.value)">
+    <option value="Arial">Arial</option>
+    <option value="Times New Roman">Times</option>
+    <option value="Courier New">Courier</option>
+  </select>
+  <select onchange="execCmdArg('fontSize', this.value)">
+    <option value="3">Taille 3</option>
+    <option value="4">Taille 4</option>
+    <option value="5">Taille 5</option>
+  </select>
+  <input type="color" onchange="execCmdArg('foreColor', this.value)">
+  <button onclick="coder()">🔒 Coder</button>
+  <button onclick="decoder()">🔓 Décoder</button>
+  <button onclick="saveDoc()">💾 Exporter .doc</button>
+</div>
+<div id="editor" contenteditable="true">Commencez à écrire ici...</div>
+<footer>
+  <button onclick="zoom(1.1)">Zoom +</button>
+  <button onclick="zoom(0.9)">Zoom -</button>
+</footer>
+
+<script>
+function execCmd(cmd) {
+  document.execCommand(cmd, false, null);
+}
+function execCmdArg(cmd, arg) {
+  document.execCommand(cmd, false, arg);
+}
